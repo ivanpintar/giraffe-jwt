@@ -35,8 +35,8 @@ module Auth =
         let name = ctx.User.FindFirst ClaimTypes.NameIdentifier
         match findUserF name.Value with
         | Some user ->        
-            let claims = Seq.append ctx.User.Claims [ Claim(ClaimTypes.Role, user.Role.ToString())] 
-            ctx.User.AddIdentity(ClaimsIdentity(claims))
+            let claimsId = ctx.User.Identity :?> ClaimsIdentity
+            claimsId.AddClaim(Claim(ClaimTypes.Role, user.Role.ToString()))
             next ctx
         | None -> next ctx
         
@@ -49,7 +49,7 @@ module Auth =
         |]
 
         let signingCreds = SigningCredentials(key = key, 
-                                                algorithm = SecurityAlgorithms.HmacSha256)
+                                              algorithm = SecurityAlgorithms.HmacSha256)
 
         let token = JwtSecurityToken(issuer = domain,
                                      audience = domain,

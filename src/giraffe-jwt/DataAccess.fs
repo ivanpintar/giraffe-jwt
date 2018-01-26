@@ -2,7 +2,6 @@
 
 module DataAccess = 
     open GiraffeJwt.Models
-    open Giraffe.GiraffeViewEngine
     open System.Collections.Generic
     
     let private passwords =         

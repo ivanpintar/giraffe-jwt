@@ -34,7 +34,7 @@ module WebApp =
                 choose [
                     route "/" >=> text "public route"
                     route "/admin" >=> Auth.authorize [ Admin ] >=> handleGetSecured
-                    route "/user" >=> Auth.authorize [ Role.Admin; Role.User ] >=> handleGetSecured
+                    route "/user" >=> Auth.authorize [ Admin; User ] >=> handleGetSecured
                 ]
             POST >=>
                 choose [
